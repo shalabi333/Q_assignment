@@ -128,11 +128,13 @@ Data is extracted from real estate APIs using Python scripts. The API crawler is
 
    ```bash
    docker-compose exec airflow bash
-   dbt deps```
+   dbt deps
+   ```
    
 2. Run dbt models and tests from the Airflow UI or within the container:
    ```bash
-   dbt run```
+   dbt run
+   ```
 
 ### Part 5: Airflow Orchestration
 
