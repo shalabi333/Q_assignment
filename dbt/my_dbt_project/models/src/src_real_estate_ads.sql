@@ -1,0 +1,47 @@
+WITH src_real_estate_ads AS (
+  SELECT
+    *
+  FROM
+    real_estate_ads
+)
+
+SELECT  advertisement_number AS "Advertisement_Number"
+,user_number AS "User_Number"
+,creation_time AS "Creation_Time "
+,last_update_time AS "Last_Update_Time" 
+,age_less_than AS "Age_Less_Than" 
+,number_of_apartments AS "Number_of_Appartment" 
+,number_of_bedrooms AS "Number_of_Beadrooms" 
+,floor AS "Floor" 
+,number_of_kitchens AS "Number_of_Kitchens " 
+,closed AS "Closed"
+,residential_or_commercial AS "Residential_or_Commercial"
+,property_type AS "Property_Type" 
+,driver_room AS "Driver_Room" 
+,duplex AS "Duplex" 
+,families_or_singles AS "Families_or_Singls" 
+,furnished AS "Furnished" 
+,number_of_living_rooms AS "Number_of_Living_Rooms" 
+,maids_room AS "Maid_Room" 
+,price_per_meter AS "Price_per_Meter" 
+,type_of_advertiser AS "Type_of_Advertiser" 
+,swimming_pool AS "Swimming_Pool" 
+,paid AS "Paid" 
+,price AS "Price"
+,rental_period AS "Rental_Period" 
+,number_of_rooms AS "Number_of_Rooms" 
+,area_dimension AS "Area_Dimension" 
+,street_direction AS "Street_Direction" 
+,street_width AS "Street_Width" 
+,for_sale_or_rent AS "For_sale_or_Rent" 
+,number_of_bathrooms AS "Number_of_Bathrooms" 
+,latitude AS "Latitude" 
+,longitude AS "Longitude" 
+,region_name_ar AS "region_name_ar" 
+,region_name_en AS "region_name_en" 
+,province_name AS "province_name" 
+,nearest_city_name_ar AS "nearest_city_name_ar" 
+,nearest_city_name_en AS "nearest_city_name_en" 
+,district_name_ar AS "district_name_ar" 
+,district_name_en AS "district_name_en"
+FROM src_real_estate_ads

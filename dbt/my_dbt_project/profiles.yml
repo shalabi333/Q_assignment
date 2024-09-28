@@ -1,0 +1,11 @@
+my_dbt_project:
+  outputs:
+    dev:
+      type: postgres
+      host: postgres #localhost  # This should point to your DB host (container service name for PostgreSQL)
+      user: airflow  # Your PostgreSQL username
+      password: airflow  # Your PostgreSQL password
+      dbname: airflow  # The database you are using
+      schema: dev  # The schema to run your models in
+      port: 5432
+  target: dev

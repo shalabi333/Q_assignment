@@ -1,0 +1,81 @@
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'my_dbt_project'
+version: '1.0.0'
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'my_dbt_project'
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:         # directories to be removed by `dbt clean`
+  - "target"
+  - "dbt_packages"
+
+
+# Configuring models
+# Full documentation: https://docs.getdbt.com/docs/configuring-models
+
+# In this example config, we tell dbt to build all models in the example/
+# directory as views. These settings can be overridden in the individual model
+# files using the `{{ config(...) }}` macro.
+models:
+  my_dbt_project:
+    # Config indicated by + and applies to all files under models/example/
+    example:
+      +materialized: view
+
+seeds:
+  my_dbt_project:
+    csv_data_realstate:
+      enabled: true
+      +column_types:
+        Advertisement_Number: integer
+        User_Number: integer
+        Creation_Time: timestamp
+        Last_Update_Time: timestamp
+        Age_Less_Than: integer
+        Number_of_Appartment: integer
+        Number_of_Beadrooms: integer
+        Floor: integer
+        Number_of_Kitchens: integer
+        Closed: varchar
+        Residential_or_Commercial: varchar
+        Property_Type: varchar
+        Driver_Room: varchar
+        Duplex: varchar
+        Families_or_Singls: varchar
+        Furnished: varchar
+        Number_of_Living_Rooms: integer
+        Maid_Room: varchar
+        Price_per_Meter: integer
+        Type_of_Advertiser: varchar
+        Swimming_Pool: varchar
+        Paid: varchar
+        Price: decimal
+        Rental_Period: varchar
+        Number_of_Rooms: integer
+        Area_Dimension: integer
+        Street_Direction: varchar
+        Street_Width: integer
+        Fore_saleor_Rent: varchar
+        Number_of_Bathrooms: integer
+        Latitude: decimal
+        Longitude: decimal
+        region_name_ar: varchar
+        region_name_en: varchar
+        province_name: varchar
+        nearest_city_name_ar: varchar
+        nearest_city_name_en: varchar
+        district_name_ar: varchar
+        district_name_en: varchar
+        Zip_Code_No: decimal

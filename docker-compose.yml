@@ -1,0 +1,82 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    volumes:
+      - postgres-db-volume:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+
+  redis:
+    image: redis:latest
+
+  airflow-scheduler:
+    build: .  # Build using your Dockerfile
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=CeleryExecutor
+      - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres/airflow
+      - AIRFLOW__CELERY__BROKER_URL=redis://redis:6379/0
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./plugins:/opt/airflow/plugins
+      - ./dbt/my_dbt_project:/opt/airflow/dbt/my_dbt_project
+      - ./dbt/my_dbt_project/profiles.yml:/home/airflow/.dbt/profiles.yml
+      - /var/run/docker.sock:/var/run/docker.sock 
+    command: ["airflow", "scheduler"]
+    restart: always
+#airflow_project/dbt_project.yml
+  airflow-webserver:
+    build: .
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=CeleryExecutor
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres/airflow
+      - AIRFLOW__CELERY__BROKER_URL=redis://redis:6379/0
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+    depends_on:
+      - postgres
+      - redis
+      - airflow-scheduler
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./plugins:/opt/airflow/plugins
+      - ./dbt/my_dbt_project:/opt/airflow/dbt/my_dbt_project
+      - ./dbt/my_dbt_project/profiles.yml:/home/airflow/.dbt/profiles.yml
+      - /var/run/docker.sock:/var/run/docker.sock 
+    command: ["airflow", "webserver"]
+    restart: always
+
+  airflow-worker:
+    build: .
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=CeleryExecutor
+      - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres/airflow
+      - AIRFLOW__CELERY__BROKER_URL=redis://redis:6379/0
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./plugins:/opt/airflow/plugins
+      - ./dbt/my_dbt_project:/opt/airflow/dbt/my_dbt_project
+      - ./dbt/my_dbt_project/profiles.yml:/home/airflow/.dbt/profiles.yml
+      - /var/run/docker.sock:/var/run/docker.sock 
+    command: ["airflow", "celery", "worker"]  # Updated command to celery worker
+    restart: always
+
+volumes:
+  postgres-db-volume:
