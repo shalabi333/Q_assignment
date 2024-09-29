@@ -45,7 +45,8 @@ All services (PostgreSQL, Airflow, dbt) are run inside Docker containers.
 
    ```bash
    docker-compose up --build
-
+   ```
+ 
 This will start the PostgreSQL database, Airflow scheduler, Airflow web server, and dbt for transformations.
 
 ### Access services:
@@ -60,7 +61,7 @@ This will start the PostgreSQL database, Airflow scheduler, Airflow web server, 
 
 1. Access the PostgreSQL database (from the terminal or using pgAdmin) and run the schema to set up the database tables.
 
-   ```sql
+ ```sql
    create table public.real_estate_ads
 (
     advertisement_number      bigint not null
@@ -105,7 +106,6 @@ This will start the PostgreSQL database, Airflow scheduler, Airflow web server, 
     district_name_en          varchar(255),
     zip_code_no               varchar(10)
 );
-
 ```
 
 ### Part 3: Set Up API Crawling
