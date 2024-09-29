@@ -60,7 +60,7 @@ This will start the PostgreSQL database, Airflow scheduler, Airflow web server, 
 ### 3. Configure PostgreSQL
 
 1. Access the PostgreSQL database (from the terminal or using pgAdmin) and run the schema to set up the database tables.
-
+```
    ```sql
    create table public.real_estate_ads
 (
